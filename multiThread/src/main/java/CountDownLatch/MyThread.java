@@ -1,13 +1,13 @@
 package CountDownLatch;
 
+import utils.PropertyUtils;
+
+import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
 
 public class MyThread {
-    public static CountDownLatch countDownLatch;
 
-    public void setCountDownLatch(int threadNum) {
-        countDownLatch = new CountDownLatch(threadNum);
-    }
+    public static final CountDownLatch countDownLatch=new CountDownLatch(Integer.parseInt(PropertyUtils.getThreadNum()));
 
     public void run() {
         Thread thread = new Thread(() -> {
@@ -17,7 +17,6 @@ public class MyThread {
                 e.printStackTrace();
             }
             System.out.println(Thread.currentThread().getName() + " start");
-            System.out.println(countDownLatch.getCount());
             synchronized (countDownLatch) {
                 countDownLatch.countDown();
                 if (countDownLatch.getCount() > 0) {
